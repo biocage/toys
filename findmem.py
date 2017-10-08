@@ -1,5 +1,18 @@
+#!/usr/bin/env python
+# Q&D script to find w+x pages on Linux
+# Use: ./findmem,py
+# Run as root for more interesting results, otherwise you'll only see your own processes
+# Output is <pid> <processName> <Python-style list of w+x pages> <Address of process' stack>
+# Marc Santoro, marc.santoro@gmail.com
+#
+#
+# Why? I've been playing with mechanisms to detect applications that may use unnecessarily permissive memory permissions that may be defeating security measures
+# Note this script is pretty brittle and depends on the exact format of files in /proc
+
+
+
+
 import os
-import mmap
 import traceback
 
 def probe_mem(pid):
@@ -52,7 +65,7 @@ if __name__ == "__main__":
             if wx != []:
                 print proc, psname, wx, stack
         except:
-            # traceback.print_exc()
+            traceback.print_exc()
             pass
 
 
